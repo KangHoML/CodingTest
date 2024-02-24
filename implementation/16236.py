@@ -2,14 +2,15 @@ import sys
 from collections import deque
 input = sys.stdin.readline
 
-
-def bfs(graph, shork_state, visited):
+def bfs(graph, shork_state):
     dx = [0, 0, 1, -1]
     dy = [1, -1, 0, 0]
     n = len(graph)
+    visited = [[-1]*n for _ in range(n)]
+
     min_distance = 1e9
 
-    size, pos_x, pos_y = shork_state
+    pos_x, pos_y, size = shork_state
     queue = deque([(pos_x, pos_y)])
     visited[pos_x][pos_y] = 0
     
@@ -45,7 +46,6 @@ def bfs(graph, shork_state, visited):
 def main():
     n = int(input())
     graph = [list(map(int, input().split())) for _ in range(n)]
-    visited = [[-1]*n for _ in range(n)]
     size = 2
 
     # 초기 상어의 위치
@@ -62,7 +62,7 @@ def main():
         shork_state = (pos_x, pos_y, size)
         
         # 각 물고기까지의 최단 경로 및 상어 위치 최신화
-        state = bfs(graph, shork_state, visited)
+        state = bfs(graph, shork_state)
 
         if not state:
             print(distance)
