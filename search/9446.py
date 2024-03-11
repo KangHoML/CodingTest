@@ -1,39 +1,36 @@
 import sys
-sys.setrecursionlimit(100000)
+sys.setrecursionlimit(10**6)
 input = sys.stdin.readline
 
-# p : 현재 인덱스 / i : 현재 탐색중인 인덱스
-def dfs(p, i, visited):
-    visited[p] = 0
-    v = hope[p]
+def dfs(i):
+    global result
+    visited[i] = True
+    team.append(i+1)
+    v = s[i]
 
-    if visited[v-1] == -1:
-        dfs(v-1, i, visited)
+    if visited[v-1] == False:
+        dfs(v-1)
     else:
-        if v == (i+1):
-            for i, times in enumerate(visited):
-                if times == 0:
-                    team.append(i) # 마지막 학생이 원하는 학생이 탐색중인 학생일 경우 팀 완성
+        # team 생성 확인
+        if v in team:
+            result += team[team.index(v):]
 
 def sol():
-    global team
-    team = []
+    global team, visited
+    visited = [False] * n
 
     for i in range(n):
-        visited = [-1] * n
-        if i not in team: # 팀 멤버가 아닐 때만 탐색
-            dfs(i, i, visited)
-    
-    return len(hope) - len(team)
-    
+        team = []
+        # 한 번 검색한 부분은 다시 검색할 필요 없음!
+        if visited[i] == False:
+            dfs(i)
 
 if __name__ == "__main__":
-    n_case = int(input())
-    for _ in range(n_case):
-        global n, hope
-        
+    global n, s
+    for _ in range(int(input())):
+        result = []
         n = int(input())
-        hope = list(map(int, input().split()))
+        s = list(map(int, input().split()))
+        sol()
 
-        print(sol())
-
+        print(n - len(result))
