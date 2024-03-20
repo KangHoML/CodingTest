@@ -129,22 +129,24 @@ def heap_sort(arr):
             while current <= parent:
                 child_left = current * 2 + 1
                 child_right = child_left + 1
-                print(f"current: {current}, child: {child_left}")
 
+                #  leaf node 중 큰 값 찾기
                 if child_right < len(arr) and arr[child_left] < arr[child_right]:
                     child_left = child_right
                 
+                # leaf node가 root node보다 클 경우, 교환
                 if arr[current] < arr[child_left]:
                     arr[current], arr[child_left] = arr[child_left], arr[current]    
                     current = child_left
                 else:
                     break
                 
-
     def _heappop(heap, end_idx):
+        # 최상위 노드와 최하위 노드를 교환
         heap[end_idx], heap[0] = heap[0], heap[end_idx]
         current, child_left = 0, 1
 
+        # 마지막 요소를 새로운 루트로 설정하여 heapify 수행
         while child_left < end_idx:
             child_right = child_left + 1
             if child_right < end_idx and heap[child_left] < heap[child_right]:
