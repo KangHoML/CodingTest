@@ -54,18 +54,18 @@ def bubble_sort(arr):
     - Best Case : O(NlogN)
 '''
 def merge_sort(arr):
-    def merge_sort(arr):
+    def _merge_sort(arr):
         if len(arr) > 1:
             mid = len(arr) // 2
             left = arr[:mid]
             right = arr[mid:]
 
-            merge_sort(left)
-            merge_sort(right)
+            _merge_sort(left)
+            _merge_sort(right)
 
-            merge(arr, left, right)
+            _merge(arr, left, right)
 
-    def merge(arr, left, right):
+    def _merge(arr, left, right):
         i, j, k = 0, 0, 0
 
         while i < len(left) and j < len(right):
@@ -87,19 +87,87 @@ def merge_sort(arr):
             j += 1
             k += 1
 
-    merge_sort(arr)
-        
+    _merge_sort(arr)
+
+'''
+퀵 정렬
+    - Worst Case(이미 정렬되어 있는 경우): O(N^2)
+    - Best Case: O(NlogN)
+'''
+def quick_sort(arr):
+    def _quick_sort(low, high):
+        if high > low:
+            mid = _partition(low, high)
+            _quick_sort(low, mid-1)
+            _quick_sort(mid, high)
+
+    def _partition(low, high):
+        pivot = arr[(low + high)//2]
+        while low <= high:
+            while arr[low] < pivot:
+                low += 1
+            while arr[high] > pivot:
+                high -= 1
+            
+            if low <= high:
+                arr[low], arr[high] = arr[high], arr[low]
+                low, high = low + 1, high - 1
+        return low
+
+    _quick_sort(0, len(arr) -1)
+
+'''
+힙 정렬
+    - Worst Case : O(NlogN)
+    - Best Case : O(NlogN)
+'''
+
+def heap_sort(arr):
+    def _max_heapify(arr):
+        parent = len(arr) // 2 - 1
+        for current in range(parent, -1, -1):
+            while current <= parent:
+                child_left = current * 2 + 1
+                child_right = child_left + 1
+                print(f"current: {current}, child: {child_left}")
+
+                if child_right < len(arr) and arr[child_left] < arr[child_right]:
+                    child_left = child_right
+                
+                if arr[current] < arr[child_left]:
+                    arr[current], arr[child_left] = arr[child_left], arr[current]    
+                    current = child_left
+                else:
+                    break
+                
+
+    def _heappop(heap, end_idx):
+        heap[end_idx], heap[0] = heap[0], heap[end_idx]
+        current, child_left = 0, 1
+
+        while child_left < end_idx:
+            child_right = child_left + 1
+            if child_right < end_idx and heap[child_left] < heap[child_right]:
+                    child_left = child_right
+            
+            if heap[current] < heap[child_left]:
+                heap[current], heap[child_left] = heap[child_left], heap[current]
+                current = child_left
+                child_left = current * 2 + 1
+            else:
+                break
+    
+    _max_heapify(arr)
+    for end_idx in range(len(arr)-1, 0, -1):
+        _heappop(arr, end_idx)
+
+
 def main():
-    arr = [i for i in range(5, 0, -1)]
-    merge_sort(arr)
+    arr = [5, 3, 8, 4, 9, 1, 6, 2, 7]
+    heap_sort(arr)
     print(arr)
 
 if __name__ == "__main__":
     main()
 
-# 힙
-# 퀵
-# 트리
-    
-
-        
+# 힙    
