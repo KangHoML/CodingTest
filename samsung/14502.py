@@ -1,10 +1,6 @@
-import sys
 import copy
 from collections import deque
 from itertools import combinations
-
-input = sys.stdin.readline
-sys.setrecursionlimit(10**6)
 
 # 입력
 n, m = map(int, input().split())
@@ -53,7 +49,6 @@ for i in range(n):
         if graph[i][j] == 2:
             start_pos.append((i, j))
 
-
 # dfs를 이용하여 3개의 벽 놓는 모든 경우의 수에 대해 완전 탐색
 def dfs(cnt):
     if cnt == 3:
@@ -65,7 +60,7 @@ def dfs(cnt):
         for j in range(m):
             if graph[i][j] == 0:
                 graph[i][j] = 1
-                dfs(cnt+1)
+                dfs(cnt + 1)
                 graph[i][j] = 0 # 다시 탐색을 위해 0으로 만들어주기
 
 # dfs를 통해 3개의 벽 조합 완전 탐색
@@ -73,6 +68,7 @@ def sol1():
     dfs(0)
 
 # 조합을 이용해 3개의 벽 조합 완전탐색
+# combination 직접 구현하기
 def sol2():
     wall = []
     for i in range(n):
