@@ -17,8 +17,8 @@ def postfix(tokens, priority):
             if not stack: stack.append(token) # 스택이 비어있는 경우 추가
             else:
                 while stack:
-                    # 우선순위에 따라 스택 비우기
-                    if priority[token] <= priority[stack[-1]]:
+                    # 우선순위에 따라 스택 비우기 (스택의 top이 항상 후순위여야함)
+                    if priority[token] >= priority[stack[-1]]: # 스택의 top의 연산자보다 후순위일 경우
                         result.append(stack.pop())
                     else:
                         break
