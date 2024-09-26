@@ -25,7 +25,7 @@ def dfs(n, idx):
     if n == cnt:
         if check():
             flag = 1
-            return
+        return
     
     for j in range(idx, len(pos)):
         x, y = pos[j]
