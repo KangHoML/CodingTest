@@ -1,5 +1,5 @@
-# import sys
-# sys.stdin = open("5373.txt", "r")
+import sys
+sys.stdin = open("5373.txt", "r")
 
 color = ['w', 'y', 'r', 'o', 'g', 'b']
 face = {'U': 1, 'D': 2, 'F': 3, 'B': 4, 'L': 5, 'R': 6}
@@ -32,15 +32,15 @@ def turn(f, d):
 
     elif f == 'D':
         if d == '+':
-            new_cube[3][6], new_cube[3][7], new_cube[3][8] = cube[5][6], cube[5][3], cube[5][0] # 5 -> 3
-            new_cube[6][2], new_cube[6][5], new_cube[6][8] = cube[3][6], cube[3][7], cube[3][8] # 3 -> 6
-            new_cube[4][0], new_cube[4][1], new_cube[4][2] = cube[6][8], cube[6][5], cube[6][2] # 6 -> 4
-            new_cube[5][0], new_cube[5][3], new_cube[5][6] = cube[4][0], cube[4][1], cube[4][2] # 4 -> 5
+            new_cube[3][6], new_cube[3][7], new_cube[3][8] = cube[5][0], cube[5][3], cube[5][6] # 5 -> 3
+            new_cube[6][8], new_cube[6][5], new_cube[6][2] = cube[3][6], cube[3][7], cube[3][8] # 3 -> 6
+            new_cube[4][0], new_cube[4][1], new_cube[4][2] = cube[6][2], cube[6][5], cube[6][8] # 6 -> 4
+            new_cube[5][6], new_cube[5][3], new_cube[5][0] = cube[4][0], cube[4][1], cube[4][2] # 4 -> 5
         else:
-            new_cube[5][6], new_cube[5][3], new_cube[5][0] = cube[3][6], cube[3][7], cube[3][8]
-            new_cube[3][6], new_cube[3][7], new_cube[3][8] = cube[6][2], cube[6][5], cube[6][8]
-            new_cube[6][8], new_cube[6][5], new_cube[6][2] = cube[4][0], cube[4][1], cube[4][2]
-            new_cube[4][0], new_cube[4][1], new_cube[4][2] = cube[5][0], cube[5][3], cube[5][6]
+            new_cube[5][0], new_cube[5][3], new_cube[5][6] = cube[3][6], cube[3][7], cube[3][8]
+            new_cube[3][6], new_cube[3][7], new_cube[3][8] = cube[6][8], cube[6][5], cube[6][2]
+            new_cube[6][2], new_cube[6][5], new_cube[6][8] = cube[4][0], cube[4][1], cube[4][2]
+            new_cube[4][0], new_cube[4][1], new_cube[4][2] = cube[5][6], cube[5][3], cube[5][0]
 
     elif f == 'F':
         if d == '+':
@@ -56,15 +56,15 @@ def turn(f, d):
 
     elif f == 'B':
         if d == '+':
-            new_cube[2][6], new_cube[2][7], new_cube[2][8] = cube[5][0], cube[5][1], cube[5][2] # 5 -> 2
-            new_cube[6][0], new_cube[6][1], new_cube[6][2] = cube[2][6], cube[2][7], cube[2][8] # 2 -> 6
-            new_cube[1][0], new_cube[1][1], new_cube[1][2] = cube[6][2], cube[6][1], cube[6][0] # 6 -> 1
+            new_cube[2][6], new_cube[2][7], new_cube[2][8] = cube[5][2], cube[5][1], cube[5][0] # 5 -> 2
+            new_cube[6][2], new_cube[6][1], new_cube[6][0] = cube[2][6], cube[2][7], cube[2][8] # 2 -> 6
+            new_cube[1][0], new_cube[1][1], new_cube[1][2] = cube[6][0], cube[6][1], cube[6][2] # 6 -> 1
             new_cube[5][0], new_cube[5][1], new_cube[5][2] = cube[1][0], cube[1][1], cube[1][2] # 1 -> 5
         else:
-            new_cube[5][0], new_cube[5][1], new_cube[5][2] = cube[2][6], cube[2][7], cube[2][8] 
-            new_cube[2][6], new_cube[2][7], new_cube[2][8] = cube[6][0], cube[6][1], cube[6][2] 
-            new_cube[6][2], new_cube[6][1], new_cube[6][0] = cube[1][0], cube[1][1], cube[1][2] 
-            new_cube[1][0], new_cube[1][1], new_cube[1][2] = cube[5][0], cube[5][1], cube[5][2] 
+            new_cube[5][2], new_cube[5][1], new_cube[5][0] = cube[2][6], cube[2][7], cube[2][8]
+            new_cube[2][6], new_cube[2][7], new_cube[2][8] = cube[6][2], cube[6][1], cube[6][0]
+            new_cube[6][0], new_cube[6][1], new_cube[6][2] = cube[1][0], cube[1][1], cube[1][2]
+            new_cube[1][0], new_cube[1][1], new_cube[1][2] = cube[5][0], cube[5][1], cube[5][2]
 
     elif f == 'L':
         if d == '+':
@@ -107,6 +107,6 @@ for T in range(1, int(input())+1):
         cube = turn(f, d)
     
     # 출력
-    # print(f"{T}: ")
+    print(f"{T}: ")
     for i in (0, 3, 6):
         print(''.join(cube[1][i:i+3]))
