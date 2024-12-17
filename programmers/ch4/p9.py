@@ -8,9 +8,20 @@ def sol(s):
             prev = prev - 1 if prev > 0 else 0
         else:
             prev = i
+
+    new_s = ''.join(s)
+    return 1 if len(new_s) == 0 else 0
+
+def sol2(s):
+    stack = []
     
-    return 1 if ''.join(s) == '' else 0
+    for i in range(len(s)):
+        if len(stack) == 0 or s[i] != stack[-1]: stack.append(s[i])
+        else: stack.pop()
+
+    return 0 if stack else 1
 
 if __name__ == "__main__":
-    s = "aabccbdeed"
-    print(sol(s))
+    s = "abbba"
+    print(sol2(s))
+    
