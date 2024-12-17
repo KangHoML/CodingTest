@@ -24,15 +24,13 @@ def sol(n):
 
 def sol2(n):
     board = [[0] * (r + 1) for r in range(n)]
-    x, y, dir = -1, 0, 0
-    cnt, dis = 1, n
-    while dis > 0:
+    x, y, dir, cnt = -1, 0, 0, 1
+    for dis in range(n, 0, -1):
         for _ in range(dis):
             x, y = x + dx[dir % 3], y + dy[dir % 3]
             board[x][y] = cnt
             cnt += 1
         
-        dis -= 1
         dir += 1
     
     return [c for r in board for c in r]
