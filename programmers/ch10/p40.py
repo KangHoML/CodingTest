@@ -20,14 +20,12 @@ def sol(triangle):
 
 def sol2(triangle):
     # 양끝에 패딩을 추가
-    dp = [[0] * (len(r) + 2) for r in triangle]
+    dp = [[0, *t, 0] for t in triangle]
 
-    # 초기값
-    dp[0][0] = triangle[0][0]
-
+    # 각 자리에 업데이트
     for i in range(1, len(triangle)):
-        for j in range(len(triangle[i])):
-            dp[i][j] = max(dp[i-1][j-1], dp[i-1][j]) + triangle[i][j]
+        for j in range(1, i + 2):
+            dp[i][j] += max(dp[i-1][j-1], dp[i-1][j])
     
     return max(dp[-1])
 
