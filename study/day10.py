@@ -1,24 +1,22 @@
 INF = int(1e9)
 
 def isNegative():
-    dis = [INF] * (N + 1)
+    dis = [0] * (N + 1)
     
-    dis[1] = 0 # 시작점 1이라 가정
     for i in range(N):
         for s, e, d in graph:
-            if dis[s] != INF and dis[e] > dis[s] + d:
+            if dis[e] > dis[s] + d:
                 dis[e] = dis[s] + d
                 if i == N - 1: return True
     
     return False
 
 def isNegativeWrong():
-    dis = [INF] * (N + 1)
+    dis = [0] * (N + 1)
 
-    dis[1] = 0 # 시작점 1이라 가정
     for i in range(N - 1):
         for s, e, d in graph:
-            if dis[s] != INF and dis[e] > dis[s] + d:
+            if dis[e] > dis[s] + d:
                 dis[e] = dis[s] + d
                 if i == N - 2: return True
     
