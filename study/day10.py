@@ -1,5 +1,3 @@
-INF = int(1e9)
-
 def isNegative():
     dis = [0] * (N + 1)
     
