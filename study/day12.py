@@ -1,27 +1,46 @@
-from collections import Counter
+dx = [0, -1, 0, 1]
+dy = [1, 0, -1, 0]
 
-def sol(a):    
-    # 모든 원소의 등장 개수
-    elems = Counter(a)
-    
-    ans = 0
-    for elem in elems.keys():
-        # 최대 길이가 갱신되지 않는 경우 
-        if elems[elem] * 2 <= ans: continue
-        
-        # 스타 수열의 길이
-        i, cnt = 0, 0
-        while i < len(a) - 1:
-            # 조건에 만족하지 않는 경우, 한 칸 이동
-            if (a[i] != elem and a[i+1] != elem) or (a[i] == a[i+1]):
-                i += 1
-                continue
-                
-            # 조건에 만족하는 경우, 두 칸 이동
-            cnt += 2
-            i += 2
-        
-        # 최대값 갱신
-        ans = max(ans, cnt)
-    
-    return ans
+def is_skip(x, y, dir, dis, cnt):
+    if min(x, x + dx[dir] * dis) > r2 + cnt or max(x, x + dx[dir] * dis) < r1 + cnt: return True
+    if min(y, y + dy[dir] * dis) > c2 + cnt or max(y, y + dy[dir] * dis) < c1 + cnt: return True
+
+    return False
+
+for T in range(1, int(input()) + 1):
+    print(f"{T}: ")
+    # 입력
+    r1, c1, r2, c2 = map(int, input().split())
+
+    # 필요한 메모리
+    lst = [[0] * (c2 - c1 + 1) for _ in range(r2 - r1 + 1)]
+
+    # 최대 개수5
+    cnt = max(map(abs, [r1, c1, r2, c2]))
+
+    # 초기값
+    x, y = cnt, cnt
+    num, dis, dir = 1, 1, 0
+
+    # 달팽이 구현
+    for dis in range(1, 2 * (cnt + 1)):
+        for _ in range(2):
+            # 한번에 이동해도 되는가?
+            if is_skip(x, y, dir, dis, cnt):
+                x, y = x + dx[dir] * dis, y + dy[dir] * dis
+                num += dis
+            
+            else:
+                for _ in range(dis):
+                    if r1 + cnt <= x <= r2 + cnt and c1 + cnt <= y <= c2 + cnt:
+                        lst[x - (r1 + cnt)][y - (c1 + cnt)] = num
+                    x, y = x + dx[dir], y + dy[dir]
+                    num += 1
+            
+            # 방향 전환
+            dir = (dir + 1) % 4
+
+# 출력
+mxlen = len(str(max(map(max, lst))))
+for r in lst:
+    print(' '.join([str(c).rjust(mxlen) for c in r]))
