@@ -1,3 +1,5 @@
+import sys
+sys.stdin = open("day12.txt", "r")
 dx = [0, -1, 0, 1]
 dy = [1, 0, -1, 0]
 
@@ -9,6 +11,7 @@ def is_skip(x, y, dir, dis, cnt):
 
 for T in range(1, int(input()) + 1):
     print(f"{T}: ")
+    
     # 입력
     r1, c1, r2, c2 = map(int, input().split())
 
@@ -40,7 +43,7 @@ for T in range(1, int(input()) + 1):
             # 방향 전환
             dir = (dir + 1) % 4
 
-# 출력
-mxlen = len(str(max(map(max, lst))))
-for r in lst:
-    print(' '.join([str(c).rjust(mxlen) for c in r]))
+    # 출력
+    mxlen = len(str(max(map(max, lst))))
+    for r in lst:
+        print(' '.join([str(c).rjust(mxlen) for c in r]))
